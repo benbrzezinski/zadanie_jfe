@@ -240,7 +240,10 @@ button:-moz-focusring {
 }
 
 .wrapper__main {
+  display: grid;
+  gap: 8px;
   order: 3;
+  padding: 10px;
 }
 
 @media only screen and (min-width: 544px) {
@@ -297,4 +300,53 @@ button:-moz-focusring {
     -ms-grid-columns: 300px 1fr;
     grid-template-columns: 300px 1fr;
   }
+}
+
+@media only screen and (min-width: 1280px) {
+  .wrapper__main {
+    -ms-grid-columns: 1fr 1fr;
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media only screen and (min-width: 1680px) {
+  .wrapper__main {
+    -ms-grid-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.channel {
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 15px;
+  cursor: pointer;
+}
+
+.channel__logo {
+  object-fit: cover;
+  border-radius: 50%;
+  border: 4px solid #eee;
+}
+
+.channel__title {
+  text-align: center;
+}
+
+.channel__stats {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+}
+
+.channel__text {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.channel__value {
+  font-weight: 600;
 }

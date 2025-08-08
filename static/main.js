@@ -21,7 +21,11 @@ async function loadChannels() {
 
     channelsData = data.map(channel => ({
       title: channel.title,
-      logo: channel.thumbnails.high.url,
+      logo: {
+        src: channel.thumbnails.medium.url,
+        width: channel.thumbnails.medium.width,
+        height: channel.thumbnails.medium.height,
+      },
       url: channel.customUrl,
       subscribers: parseNumber(channel.statistics.subscriberCount),
       videos: parseNumber(channel.statistics.videoCount),
@@ -40,13 +44,21 @@ function renderChannels(channels) {
     .map(
       channel => `
     <article class="channel" data-url="${channel.url}">
-      <img class="channel__logo" src="${channel.logo}" alt="${channel.title}">
+      <img class="channel__logo" src="${channel.logo.src}" width=${
+        channel.logo.width
+      } height=${channel.logo.height} alt="${channel.title}">
       <h2 class="channel__title">${channel.title}</h2>
-      <p class="channel__stats">
-        SUBSCRIBERS: ${formatNumber(channel.subscribers)}<br>
-        VIDEOS: ${formatNumber(channel.videos)}<br>
-        VIEWS: ${formatNumber(channel.views)}
-      </p>
+      <div class="channel__stats">
+        <p class="channel__text">SUBSCRIBERS: <span class="channel__value">${formatNumber(
+          channel.subscribers
+        )}</span></p>
+        <p class="channel__text">VIDEOS: <span class="channel__value">${formatNumber(
+          channel.videos
+        )}</span></p>
+        <p class="channel__text">VIEWS: <span class="channel__value">${formatNumber(
+          channel.views
+        )}</span></p>
+      </div>
     </article>
   `
     )
