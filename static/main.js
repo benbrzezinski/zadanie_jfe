@@ -43,13 +43,15 @@ async function loadChannels() {
 }
 
 function renderChannels(channels) {
-  contentWrapper.innerHTML = channels
-    .map(
-      channel => `
+  contentWrapper.innerHTML =
+    channels.length > 0
+      ? channels
+          .map(
+            channel => `
     <article class="channel" data-url="${channel.url}">
       <img class="channel__logo" src="${channel.logo.src}" width=${
-        channel.logo.width
-      } height=${channel.logo.height} alt="${channel.title}">
+              channel.logo.width
+            } height=${channel.logo.height} alt="${channel.title}">
       <h2 class="channel__title">${channel.title}</h2>
       <div class="channel__stats">
         <p class="channel__text">SUBSCRIBERS: <span class="channel__value">${formatNumber(
@@ -64,13 +66,15 @@ function renderChannels(channels) {
       </div>
     </article>
   `
-    )
-    .join("");
+          )
+          .join("")
+      : "<p>No matching channels</p>";
 }
 
 function setEventListeners() {
   sortBtn.addEventListener("click", toggleSortBtn);
   sortRadios.forEach(radio => radio.addEventListener("change", setSort));
+  filterInput.addEventListener("input", handleFilterInput);
 }
 
 function setSort() {
@@ -107,6 +111,16 @@ function toggleSortBtn() {
   }
 }
 
+function handleFilterInput() {
+  const filterInputText = normalizeText(filterInput.value);
+
+  filteredData = channelsData.filter(channel =>
+    normalizeText(channel.title).includes(filterInputText)
+  );
+
+  setSort();
+}
+
 function parseNumber(value) {
   if (typeof value === "number") return value;
 
@@ -117,4 +131,12 @@ function parseNumber(value) {
 
 function formatNumber(number) {
   return number.toLocaleString("en-US");
+}
+
+function normalizeText(text) {
+  return text
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/ł/g, "l")
+    .replace(/[\u0300-\u036f]/g, "");
 }
