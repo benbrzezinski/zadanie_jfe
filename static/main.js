@@ -72,6 +72,7 @@ function renderChannels(channels) {
 }
 
 function setEventListeners() {
+  clearBtn.addEventListener("click", clearFilters);
   sortBtn.addEventListener("click", toggleSortBtn);
   sortRadios.forEach(radio => radio.addEventListener("change", setSort));
   filterInput.addEventListener("input", handleFilterInput);
@@ -119,6 +120,14 @@ function handleFilterInput() {
   );
 
   setSort();
+}
+
+function clearFilters() {
+  filterInput.value = "";
+  sortRadios.forEach(radio => (radio.checked = false));
+  sortDirection = "asc";
+  filteredData = [...channelsData];
+  renderChannels(filteredData);
 }
 
 function parseNumber(value) {
