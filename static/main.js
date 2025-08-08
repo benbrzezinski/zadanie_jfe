@@ -99,6 +99,7 @@ function setSort() {
     });
   }
 
+  clearBtn.disabled = filterInput.value || selectedRadio ? false : true;
   renderChannels(filteredData);
 }
 
@@ -123,11 +124,18 @@ function handleFilterInput() {
 }
 
 function clearFilters() {
-  filterInput.value = "";
-  sortRadios.forEach(radio => (radio.checked = false));
-  sortDirection = "asc";
-  filteredData = [...channelsData];
-  renderChannels(filteredData);
+  const selectedRadio = document.querySelector("input[name='sort']:checked");
+
+  if (filterInput.value || selectedRadio) {
+    filterInput.value = "";
+    sortRadios.forEach(radio => (radio.checked = false));
+    sortDirection = "asc";
+    sortBtn.innerText = `${sortDirection} ↑↓`;
+    sortBtn.disabled = true;
+    clearBtn.disabled = true;
+    filteredData = [...channelsData];
+    renderChannels(filteredData);
+  }
 }
 
 function parseNumber(value) {
