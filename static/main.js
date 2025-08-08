@@ -1,7 +1,8 @@
 const contentWrapper = document.querySelector(".js-content");
 const filterInput = document.querySelector(".filter__input");
 const sortRadios = document.querySelectorAll('input[name="sort"]');
-const clearBtn = document.querySelector(".button--clear");
+const clearBtn = document.querySelector(".clear-btn");
+const sortBtn = document.querySelector(".sort-btn");
 
 let channelsData = [];
 let filteredData = [];
@@ -11,6 +12,7 @@ document.addEventListener("DOMContentLoaded", init);
 
 async function init() {
   await loadChannels();
+  setEventListeners();
 }
 
 async function loadChannels() {
@@ -32,10 +34,11 @@ async function loadChannels() {
       views: parseNumber(channel.statistics.viewCount),
     }));
 
+    filteredData = [...channelsData];
     renderChannels(channelsData);
   } catch (err) {
-    console.error("Błąd podczas pobierania kanałów:", err);
-    contentWrapper.innerHTML = "<p>Nie udało się wczytać kanałów.</p>";
+    console.error("Error loading channels:", err);
+    contentWrapper.innerHTML = "<p>Failed to load channels!</p>";
   }
 }
 
@@ -65,6 +68,45 @@ function renderChannels(channels) {
     .join("");
 }
 
+function setEventListeners() {
+  sortBtn.addEventListener("click", toggleSortBtn);
+  sortRadios.forEach(radio => radio.addEventListener("change", setSort));
+}
+
+function setSort() {
+  const selectedRadio = document.querySelector("input[name='sort']:checked");
+
+  if (selectedRadio) {
+    const radioSortingMethod = selectedRadio.id.replace("sort-", "");
+    sortBtn.disabled = false;
+
+    filteredData.sort((a, b) => {
+      const methodA = a[radioSortingMethod];
+      const methodB = b[radioSortingMethod];
+
+      if (typeof methodA === "string") {
+        return sortDirection === "asc"
+          ? methodA.localeCompare(methodB)
+          : methodB.localeCompare(methodA);
+      } else {
+        return sortDirection === "asc" ? methodA - methodB : methodB - methodA;
+      }
+    });
+  }
+
+  renderChannels(filteredData);
+}
+
+function toggleSortBtn() {
+  const selectedRadio = document.querySelector("input[name='sort']:checked");
+
+  if (selectedRadio) {
+    sortDirection = sortDirection === "asc" ? "desc" : "asc";
+    sortBtn.innerText = `${sortDirection} ↑↓`;
+    setSort();
+  }
+}
+
 function parseNumber(value) {
   if (typeof value === "number") return value;
 
@@ -73,6 +115,6 @@ function parseNumber(value) {
   );
 }
 
-function formatNumber(n) {
-  return n.toLocaleString("en-US");
+function formatNumber(number) {
+  return number.toLocaleString("en-US");
 }
