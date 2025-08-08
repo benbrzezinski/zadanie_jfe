@@ -34,6 +34,11 @@ button {
   -webkit-appearance: button;
 }
 
+button:disabled {
+  opacity: 0.3;
+  cursor: default;
+}
+
 button::-moz-focus-inner {
   border-style: none;
   padding: 0;
@@ -78,12 +83,12 @@ button:-moz-focusring {
   text-transform: uppercase;
 }
 
-.button:active {
+.button:active:enabled {
   background: #ff9c66;
 }
 
-.button:focus,
-.button:hover {
+.button:focus:enabled,
+.button:hover:enabled {
   background: #ff7b33;
 }
 
