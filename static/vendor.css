@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css?family=Lato');
+@import url("https://fonts.googleapis.com/css?family=Lato");
 
 html {
   line-height: 1.15;
@@ -21,7 +21,7 @@ strong {
 
 button,
 input {
-  font-family: inherit; 
+  font-family: inherit;
   font-size: 100%;
   line-height: 1.15;
   margin: 0;
@@ -30,6 +30,7 @@ input {
 
 button {
   text-transform: none;
+  appearance: button;
   -webkit-appearance: button;
 }
 
@@ -112,7 +113,7 @@ button:-moz-focusring {
 .choice + .choice__label:active {
   background-color: #fff;
   border-radius: 2px;
-  opacity: .3;
+  opacity: 0.3;
 }
 
 .choice + .choice__label:before {
@@ -125,7 +126,7 @@ button:-moz-focusring {
   margin-left: -28px;
   margin-right: 8px;
   min-width: 20px;
-  transition: border-color .3s;
+  transition: border-color 0.3s;
   vertical-align: top;
 }
 
@@ -137,7 +138,7 @@ button:-moz-focusring {
 .choice + .choice__label:hover:before,
 .choice:checked + .choice__label:before,
 .choice:hover + .choice__label:before {
-  border-width: 2px
+  border-width: 2px;
 }
 
 .choice + .choice__label:after {
@@ -145,7 +146,7 @@ button:-moz-focusring {
   content: "";
   display: inline-block;
   position: absolute;
-  transform-origin: top left
+  transform-origin: top left;
 }
 
 .choice--radio + .choice__label:after {
@@ -153,7 +154,7 @@ button:-moz-focusring {
   height: 8px;
   left: 6px;
   top: 10px;
-  width: 8px
+  width: 8px;
 }
 
 .choice--radio:checked + .choice__label:after {
@@ -169,9 +170,9 @@ button:-moz-focusring {
 }
 
 .filter__input {
-  font-family: 'Open Sans',sans-serif;
+  font-family: "Open Sans", sans-serif;
   font-size: 14px;
-  transition: border-color .2s ease-in-out, box-shadow .2s ease-in-out;
+  transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
   vertical-align: top;
   -moz-appearance: none;
   -ms-text-size-adjust: 100%;
@@ -220,7 +221,7 @@ button:-moz-focusring {
 }
 
 .wrapper {
-  font-family: 'Lato', sans-serif;
+  font-family: "Lato", sans-serif;
   background: #eceff1;
   display: flex;
   flex-flow: column wrap;
@@ -232,7 +233,7 @@ button:-moz-focusring {
 
 .wrapper__filter {
   order: 1;
-} 
+}
 
 .wrapper__aside {
   order: 2;
@@ -249,12 +250,12 @@ button:-moz-focusring {
 
   .wrapper {
     margin: 8px;
-    display:-ms-grid;
+    display: -ms-grid;
     display: grid;
     -ms-grid-columns: 40% 60%;
     -ms-grid-rows: 80px 56px 1fr;
     grid-template-columns: 40% 60%;
-    grid-template-rows: 80px 56px 1fr; 
+    grid-template-rows: 80px 56px 1fr;
   }
 
   .wrapper__header {
@@ -263,7 +264,7 @@ button:-moz-focusring {
     -ms-grid-column-span: 2;
     grid-column: 1 / -1;
   }
-  
+
   .wrapper__aside {
     order: 1;
     -ms-grid-column: 1;
@@ -272,7 +273,7 @@ button:-moz-focusring {
     grid-column: 1;
     grid-row: 2 / 4;
   }
-  
+
   .wrapper__filter {
     order: 2;
     -ms-grid-column: 2;
