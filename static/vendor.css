@@ -105,6 +105,13 @@ button:-moz-focusring {
   position: absolute;
 }
 
+.header {
+  display: flex;
+  align-items: flex-end;
+  gap: 8px;
+  margin: 0;
+}
+
 .choice + .choice__label {
   -ms-text-size-adjust: 100%;
   -webkit-tap-highlight-color: transparent;
@@ -254,7 +261,7 @@ button:-moz-focusring {
   display: grid;
   gap: 8px;
   order: 3;
-  padding: 10px;
+  padding-top: 8px;
 }
 
 @media only screen and (min-width: 544px) {
