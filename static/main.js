@@ -5,17 +5,17 @@ const clearBtn = document.querySelector(".clear-btn");
 const sortBtn = document.querySelector(".sort-btn");
 
 let channelsData = [];
-let filteredData = [];
+let filteredChannelsData = [];
 let sortDirection = "asc"; // lub "desc"
 
 document.addEventListener("DOMContentLoaded", init);
 
 async function init() {
-  await loadChannels();
+  await fetchChannels();
   setEventListeners();
 }
 
-async function loadChannels() {
+async function fetchChannels() {
   try {
     const res = await fetch("./channels.json");
     if (!res.ok) throw new Error(`Status code ${res.status}`);
@@ -34,7 +34,7 @@ async function loadChannels() {
       views: parseNumber(channel.statistics.viewCount),
     }));
 
-    filteredData = [...channelsData];
+    filteredChannelsData = [...channelsData];
     renderChannels(channelsData);
   } catch (err) {
     console.error("Error loading channels:", err);
@@ -85,7 +85,7 @@ function setSort() {
     const radioSortingMethod = selectedRadio.id.replace("sort-", "");
     sortBtn.disabled = false;
 
-    filteredData.sort((a, b) => {
+    filteredChannelsData.sort((a, b) => {
       const methodA = a[radioSortingMethod];
       const methodB = b[radioSortingMethod];
 
@@ -100,7 +100,7 @@ function setSort() {
   }
 
   clearBtn.disabled = filterInput.value || selectedRadio ? false : true;
-  renderChannels(filteredData);
+  renderChannels(filteredChannelsData);
 }
 
 function toggleSortBtn() {
@@ -116,7 +116,7 @@ function toggleSortBtn() {
 function handleFilterInput() {
   const filterInputText = normalizeText(filterInput.value);
 
-  filteredData = channelsData.filter(channel =>
+  filteredChannelsData = channelsData.filter(channel =>
     normalizeText(channel.title).includes(filterInputText)
   );
 
@@ -133,8 +133,8 @@ function clearFilters() {
     sortBtn.innerText = `${sortDirection} ↑↓`;
     sortBtn.disabled = true;
     clearBtn.disabled = true;
-    filteredData = [...channelsData];
-    renderChannels(filteredData);
+    filteredChannelsData = [...channelsData];
+    renderChannels(filteredChannelsData);
   }
 }
 
