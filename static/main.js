@@ -24,7 +24,8 @@ async function fetchChannels() {
     channelsData = data.map(channel => ({
       title: channel.title,
       logo: {
-        src: channel.thumbnails.medium.url,
+        srcMedium: channel.thumbnails.medium.url,
+        srcHigh: channel.thumbnails.high.url,
         width: channel.thumbnails.medium.width,
         height: channel.thumbnails.medium.height,
       },
@@ -49,9 +50,13 @@ function renderChannels(channels) {
           .map(
             channel => `
     <article class="channel" data-url="${channel.url}">
-      <img class="channel__logo" src="${channel.logo.src}" width=${
-              channel.logo.width
-            } height=${channel.logo.height} alt="${channel.title}">
+      <img 
+        class="channel__logo"
+        src="${channel.logo.srcMedium}"
+        srcset="${channel.logo.srcMedium} 1x, ${channel.logo.srcHigh} 2x"
+        width="${channel.logo.width}"
+        height="${channel.logo.height}"
+        alt="${channel.title}" />
       <h2 class="channel__title">${channel.title}</h2>
       <div class="channel__stats">
         <p class="channel__text">SUBSCRIBERS: <span class="channel__value">${formatNumber(

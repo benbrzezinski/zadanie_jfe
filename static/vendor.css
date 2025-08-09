@@ -19,6 +19,12 @@ strong {
   font-weight: bolder;
 }
 
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
 button,
 input {
   font-family: inherit;
