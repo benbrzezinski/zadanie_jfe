@@ -6,7 +6,7 @@ const sortBtn = document.querySelector(".sort-btn");
 
 let channelsData = [];
 let filteredChannelsData = [];
-let sortDirection = "asc"; // lub "desc"
+let sortDirection = "asc"; // "asc" || "desc"
 
 document.addEventListener("DOMContentLoaded", init);
 
