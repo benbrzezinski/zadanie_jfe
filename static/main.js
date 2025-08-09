@@ -81,6 +81,7 @@ function setEventListeners() {
   sortBtn.addEventListener("click", toggleSortBtn);
   sortRadios.forEach(radio => radio.addEventListener("change", setSort));
   filterInput.addEventListener("input", handleFilterInput);
+  contentWrapper.addEventListener("click", handleChannelClick);
 }
 
 function setSort() {
@@ -141,6 +142,14 @@ function clearFilters() {
     filteredChannelsData = [...channelsData];
     renderChannels(filteredChannelsData);
   }
+}
+
+function handleChannelClick(e) {
+  const channel = e.target.closest(".channel");
+  if (!channel) return;
+  const url = channel.dataset.url;
+  const timestamp = Date.now();
+  window.open(`${url}?utm_ts=${timestamp}`);
 }
 
 function parseNumber(value) {
