@@ -3,10 +3,12 @@ const filterInput = document.querySelector(".filter__input");
 const sortRadios = document.querySelectorAll('input[name="sort"]');
 const clearBtn = document.querySelector(".clear-btn");
 const sortBtn = document.querySelector(".sort-btn");
+const contrastBtn = document.querySelector(".contrast-btn");
 
 let channelsData = [];
 let filteredChannelsData = [];
 let sortDirection = "asc"; // "asc" || "desc"
+let contrastMode = "off"; // "off" || "on"
 
 document.addEventListener("DOMContentLoaded", init);
 
@@ -79,6 +81,7 @@ function renderChannels(channels) {
 function setEventListeners() {
   clearBtn.addEventListener("click", clearFilters);
   sortBtn.addEventListener("click", toggleSortBtn);
+  contrastBtn.addEventListener("click", toggleContrastBtn);
   sortRadios.forEach(radio => radio.addEventListener("change", setSort));
   filterInput.addEventListener("input", handleFilterInput);
   contentWrapper.addEventListener("click", handleChannelClick);
@@ -117,6 +120,12 @@ function toggleSortBtn() {
     sortBtn.innerText = `${sortDirection} ↑↓`;
     setSort();
   }
+}
+
+function toggleContrastBtn() {
+  document.documentElement.classList.toggle("contrast-mode");
+  contrastMode = contrastMode === "off" ? "on" : "off";
+  contrastBtn.innerText = `Contrast ${contrastMode}`;
 }
 
 function handleFilterInput() {
