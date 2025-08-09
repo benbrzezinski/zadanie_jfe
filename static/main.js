@@ -13,6 +13,7 @@ let contrastMode = "off"; // "off" || "on"
 document.addEventListener("DOMContentLoaded", init);
 
 async function init() {
+  storeVisitData();
   await fetchChannels();
   setEventListeners();
 }
@@ -179,4 +180,18 @@ function normalizeText(text) {
     .normalize("NFD")
     .replace(/ł/g, "l")
     .replace(/[\u0300-\u036f]/g, "");
+}
+
+function storeVisitData() {
+  const visits = parseInt(localStorage.getItem("visits") ?? "0") + 1;
+  const lastVisit = localStorage.getItem("currentVisit");
+  const currentVisit = new Date().toLocaleDateString("pl-PL", {
+    day: "numeric",
+    month: "short",
+    year: "numeric",
+  });
+
+  localStorage.setItem("visits", visits);
+  localStorage.setItem("lastVisit", lastVisit ?? "none");
+  localStorage.setItem("currentVisit", currentVisit);
 }
