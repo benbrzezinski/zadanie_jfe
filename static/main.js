@@ -21,7 +21,7 @@ async function init() {
 async function fetchChannels() {
   try {
     const res = await fetch("./channels.json");
-    if (!res.ok) throw new Error(`Status code ${res.status}`);
+    if (!res.ok) throw new Error(`${res.status} ${res.statusText}`);
     const data = await res.json();
 
     channelsData = data.map(channel => ({
